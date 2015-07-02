@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
   root 'welcome#index'
   devise_for :users
+  resources :admin, only:[:index]
+  post 'login', to: 'admin#login', as: 'admin_login'
+  post 'logout', to: 'admin#logout', as: 'admin_logout'
+  resources :categories, only:[:index, :show, :new, :create, :destroy]
+  resources :products
+  post '/add_to_cart/:product_id' => 'carts#add_to_cart', as: 'add_to_cart'
+  resources :carts, only:[:index, :new, :show, :destroy]
+  resources :line_items, only:[:index, :new, :edit, :update, :create, :destroy]
+  resources :orders, only:[:index, :show, :new, :create, :create]
   get 'welcome/index'
-  # get '*other', to: redirect('')
+
+  get '*other', to: redirect('')
   
   
 

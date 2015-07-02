@@ -1,13 +1,26 @@
 <h1>Shopmart</h1><hr/>
-<% flash.each do |name, msg| %>
-		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% if user_signed_in? %>
+	<%= button_to 'View Cart', cart_path(:id), :method => :get %><br/><br/>
 <% end %>
+<% flash.each do |name, msg| %>
+	<%= content_tag :div, msg, :id => "flash_#{name}" %><br/>
+<% end %>
+
+<table border="1">
+	<tr>
+    <th>Categories</th>
+  </tr>
+  <% @categories.each do |c| %>
+    <tr>
+      <td><%=link_to c.category, category_path(c) %></td>
+    </tr>
+	<% end %>
+</table><br/>
 <div id="user_nav">
 	<% if user_signed_in? %>
-	  Signed in as <%= current_user.email %>
-	  <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+	  <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %><br/>
 	  <%= link_to "edit profile", edit_user_registration_path %>
 	<% else %>
-	  <%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path  %>
+	  <%= link_to "Sign Up", new_user_registration_path %> | <%= link_to "sign in", new_user_session_path  %>
 	<% end %>
 </div>

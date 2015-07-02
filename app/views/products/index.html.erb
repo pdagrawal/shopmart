@@ -1,0 +1,27 @@
+<h1>Shopmart</h1><hr/>
+<h2>Product List</h2><br/>
+<%= link_to "Categories", new_category_path %> |
+<%= link_to "Add Products", new_product_path %><br/>
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+  </tr>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><%= product.category.category %></td>
+      <td><%= link_to 'Show', product_path(product) %></td>
+      <td><%= link_to 'Remove', product_path(product),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table><br/>
+
+<%= form_for :admin, url:admin_logout_path do |f| %>
+  <div><%= f.submit "Logout" %></div>
+<% end %>

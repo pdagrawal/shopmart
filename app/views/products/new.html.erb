@@ -1,0 +1,9 @@
+
+<h1>Shopmart</h1><hr/>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<h3>Add New Product</h3><br/>
+<%= render 'form' %><br/>
+<div><%= link_to "Back", products_path %></div>

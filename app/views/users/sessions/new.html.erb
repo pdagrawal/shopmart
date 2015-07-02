@@ -1,3 +1,7 @@
+<h1>Shopmart</h1><hr/>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -21,6 +25,7 @@
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
-<% end %>
-
+<% end %><br/>
+<%= link_to "Home", root_path %> |
 <%= render "users/shared/links" %>
+

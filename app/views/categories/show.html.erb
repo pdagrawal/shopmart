@@ -1,0 +1,23 @@
+<h1>Shopmart</h1><hr/>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+<%= button_to 'View Cart', cart_path(:id), :method => :get %><br/>
+<p><h3><%= @category.category %>s</h3></p><br/>
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+  </tr>
+	<% @category.products.each do |product| %>
+		<tr>
+			<td><%= product.name %></td>
+			<td><%= product.price %></td>
+			<td><%= product.description %></td>
+			<td><%= link_to 'Show', product_path(product) %></td>
+			<td><%= link_to "Add to Cart", add_to_cart_path(:product_id => product), :method => :post %></td>
+		</tr>
+	<% end %>
+</table><br/>
+<%= link_to 'Back', root_path %>
