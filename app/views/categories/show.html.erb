@@ -1,7 +1,8 @@
-<h1>Shopmart</h1><hr/>
+<%= javascript_include_tag "add_to_cart.js" %>
 <% flash.each do |key, value| %>
   <div class="alert alert-<%= key %>"><%= value %></div>
 <% end %>
+<div id="message"></div>
 <%= button_to 'View Cart', cart_path(:id), :method => :get %><br/>
 <p><h3><%= @category.category %>s</h3></p><br/>
 <table border="1">
@@ -16,7 +17,8 @@
 			<td><%= product.price %></td>
 			<td><%= product.description %></td>
 			<td><%= link_to 'Show', product_path(product) %></td>
-			<td><%= link_to "Add to Cart", add_to_cart_path(:product_id => product), :method => :post %></td>
+			<td><input type="button" value="Add to Cart" class="add_product_to_cart" id="add_to_cart_<%= product.id%>" ></td>
+			<%= hidden_field_tag('product_id', product.id) %>
 		</tr>
 	<% end %>
 </table><br/>

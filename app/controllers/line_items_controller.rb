@@ -1,5 +1,4 @@
 class LineItemsController < ApplicationController
-	
 	def index
 		@line_items = LineItem.all
 	end
@@ -7,9 +6,6 @@ class LineItemsController < ApplicationController
 	def new
 		@line_item = LineItem.new
 	end
-
-	def create
-  end
 
   def edit
   	@line_item = LineItem.find(params[:id])
@@ -25,6 +21,7 @@ class LineItemsController < ApplicationController
 			render 'edit'
 		end
   end
+
   def destroy
   	@line_item = LineItem.find(params[:id])
 	  @line_item.destroy

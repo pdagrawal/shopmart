@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   resources :categories, only:[:index, :show, :new, :create, :destroy]
   resources :products
   post '/add_to_cart/:product_id' => 'carts#add_to_cart', as: 'add_to_cart'
-  resources :carts, only:[:index, :new, :show, :destroy]
-  resources :line_items, only:[:index, :new, :edit, :update, :create, :destroy]
-  resources :orders, only:[:index, :show, :new, :create, :create]
+  resources :carts, only:[:index, :show, :destroy]
+  resources :line_items, only:[:index, :new, :edit, :update, :destroy]
+  resources :orders, only:[:show, :create]
   get 'welcome/index'
-
+  get 'about_us', to: 'welcome#about_us'
+  get 'contact_us', to: 'welcome#contact_us'
   get '*other', to: redirect('')
   
   

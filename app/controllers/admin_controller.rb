@@ -1,5 +1,4 @@
 class AdminController < ApplicationController
-	
 	def index
 		redirect_to products_path if session['admin']
 	end
@@ -12,6 +11,7 @@ class AdminController < ApplicationController
 			redirect_to admin_index_path
 		end
 	end
+	
 	def logout
 		session['admin'] = nil
 		redirect_to admin_index_path

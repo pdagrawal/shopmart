@@ -1,40 +1,29 @@
 <% if session['admin'] %>
-	<h1>Shopmart</h1><hr/>
-
 	<p><h3><%= @product.category.category %>s</h3></p>
-
 	<p>
 		<strong>Name:</strong>
 		<%= @product.name %>
 	</p>
-
 	<p>
 		<strong>Price:</strong>
 		<%= @product.price %>
 	</p>
-
 	<p>
 		<strong>Description:</strong>
 		<%= @product.description %>
 	</p>
-
 	<%= link_to 'Edit', edit_product_path(@product) %> |
 	<%= link_to 'Back', products_path %>
 <% else %>
-	<h1>Shopmart</h1><hr/>
-
 	<p><h3><%= @product.category.category %>s</h3></p>
-
 	<p>
 		<strong>Name:</strong>
 		<%= @product.name %>
 	</p>
-
 	<p>
 		<strong>Price:</strong>
 		<%= @product.price %>
 	</p>
-
 	<p>
 		<strong>Description:</strong>
 		<%= @product.description %>

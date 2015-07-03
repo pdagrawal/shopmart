@@ -1,7 +1,4 @@
 class OrdersController < ApplicationController
-	
-	def new
-	end
 
 	def create
 		if Cart.where("id = ?", session[:cart_id]).last.line_items.blank?
@@ -25,6 +22,4 @@ class OrdersController < ApplicationController
 	def show
 		@order = Order.find(params[:id])
 	end
-
-
 end

@@ -4,9 +4,6 @@ class CartsController < ApplicationController
 		@line_items = LineItem.all
 	end
 
-	def new
-	end
-
 	def current_cart
 		if session[:cart_id].nil?
 	    @current_cart = Cart.create

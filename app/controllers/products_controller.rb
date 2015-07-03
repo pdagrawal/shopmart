@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-	
 	def index
 		if session['admin']
 			@products = Product.all

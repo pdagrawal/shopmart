@@ -3,4 +3,10 @@ class WelcomeController < ApplicationController
   	@products = Product.all
   	@categories = Category.all
   end
+
+  def about_us
+  end
+
+  def contact_us
+  end
 end
