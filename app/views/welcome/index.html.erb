@@ -1,33 +1,43 @@
+<nav class="navbar navbar-default">
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active"><%= link_to "Home", root_path %></li>
+    <% if user_signed_in? %>
+      <li role="presentation"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+    <% else %>
+      <li role="presentation"><%= link_to "Login", new_user_session_path %></li>
+      <li role="presentation"><%= link_to "Signup", new_user_registration_path %></li>
+    <% end %>
+    <li role="presentation"><%= link_to "About Us", about_us_path %></li>
+    <li role="presentation"><%= link_to "Contact Us", contact_us_path %></li>
+  </ul>
+</nav>
+<div class="container">
+  <% if user_signed_in? %>
+  	<%= button_to 'View Cart', cart_path(:id), :method => :get %><br/><br/>
+  <% end %>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
 
-<ul class="nav nav-pills">
-  <li role="presentation" class="active"><%= link_to "Home", root_path %></li>
-  <li role="presentation"><%= link_to "Login", new_user_session_path %></li>
-  <li role="presentation"><%= link_to "Signup", new_user_registration_path %></li>
-  <li role="presentation"><%= link_to "About Us", about_us_path %></li>
-  <li role="presentation"><%= link_to "Contact Us", contact_us_path %></li>
-</ul>
-<% if user_signed_in? %>
-	<%= button_to 'View Cart', cart_path(:id), :method => :get %><br/><br/>
-<% end %>
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>"><%= value %></div>
-<% end %>
-
-<table border="1">
-	<tr>
-    <th>Categories</th>
-  </tr>
-  <% @categories.each do |c| %>
-    <tr>
-      <td><%=link_to c.category, category_path(c) %></td>
-    </tr>
-	<% end %>
-</table><br/>
-<div id="user_nav">
-	<% if user_signed_in? %>
-	  <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %><br/>
-	  <%= link_to "edit profile", edit_user_registration_path %>
-	<% else %>
-	  <%= link_to "Sign Up", new_user_registration_path %> | <%= link_to "sign in", new_user_session_path  %>
-	<% end %>
+  <table class="table table-hover" border="1">
+    <thead>
+    	<tr>
+        <th>Categories</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |c| %>
+        <tr>
+          <td><%=link_to c.category, category_path(c) %></td>
+        </tr>
+    	<% end %>
+    </tbody>
+  </table><br/>
+  	<% if user_signed_in? %>
+      <%= link_to "Edit Profile", edit_user_registration_path %><br/>
+  	  <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+  	  
+  	<% else %>
+  	  <%= link_to "Sign Up", new_user_registration_path %> | <%= link_to "sign in", new_user_session_path  %>
+  	<% end %>
 </div>

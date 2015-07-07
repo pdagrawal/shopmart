@@ -1,22 +1,25 @@
+<hr/>
 <% flash.each do |key, value| %>
   <div class="alert alert-<%= key %>"><%= value %></div>
 <% end %>
-<table border="1">
-  <tr>
-    <th>Product</th>
-    <th>Qty</th>
-    <th class="price">Unit Price</th>
-    <th class="price">Sub Total</th>
-  </tr>
-  <% @order.line_items.each do |item| %>
+<div class="container">
+  <table border="1">
     <tr>
-      <td><%= item.product.name %></td>
-      <td><%= item.quantity %></td>
-      <td><%= item.product.price %></td>
-      <td><%= @total = item.product.price*item.quantity %></td> 
+      <th>Product</th>
+      <th>Qty</th>
+      <th class="price">Unit Price</th>
+      <th class="price">Sub Total</th>
     </tr>
-  <% end %>
-</table><br/>
-<h4>Total Amount:</h4>
-<h4><%= @order.line_items.to_a.sum { |item| @total = item.product.price*item.quantity } %></h4><br/>
-<%= link_to "Back", root_path %>
+    <% @order.line_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.product.price %></td>
+        <td><%= @total = item.product.price*item.quantity %></td> 
+      </tr>
+    <% end %>
+  </table><br/>
+  <h4>Total Amount:</h4>
+  <h4><%= @order.line_items.to_a.sum { |item| @total = item.product.price*item.quantity } %></h4><br/>
+  <%= link_to "Back", root_path %>
+</div>

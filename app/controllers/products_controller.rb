@@ -1,11 +1,8 @@
 class ProductsController < ApplicationController
+	before_action :require_admin_login, except: [:show]
 	def index
-		if session['admin']
-			@products = Product.all
-			@categories = Category.all
-		else
-			redirect_to admin_index_path
-		end
+		@products = Product.all
+		@categories = Category.all
 	end
 
 	def show
@@ -58,4 +55,10 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :price, :description)
   end
 
+  def require_admin_login
+    unless session[:admin]
+      flash[:danger] = "You must have admin authorities to access this section"
+      redirect_to admin_index_path
+    end
+  end
 end

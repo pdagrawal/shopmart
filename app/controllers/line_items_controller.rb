@@ -1,4 +1,5 @@
 class LineItemsController < ApplicationController
+	before_action :require_line_item, only: [:edit, :update, :destroy]
 	def index
 		@line_items = LineItem.all
 	end
@@ -8,11 +9,9 @@ class LineItemsController < ApplicationController
 	end
 
   def edit
-  	@line_item = LineItem.find(params[:id])
   end
 
   def update
-  	@line_item = LineItem.find(params[:id])
 		if @line_item.update(line_item_params)
 			flash[:success] = "Cart has successfully Updated"
 			redirect_to cart_path
@@ -23,7 +22,6 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-  	@line_item = LineItem.find(params[:id])
 	  @line_item.destroy
 	  flash[:success] = "Item is successfully removed"
 	  redirect_to cart_path
@@ -32,5 +30,9 @@ class LineItemsController < ApplicationController
 	private
   def line_item_params
     params.require(:line_item).permit(:quantity)
+  end
+
+  def require_line_item
+    @line_item = current_cart.line_items.where(id: params[:id]).first
   end
 end

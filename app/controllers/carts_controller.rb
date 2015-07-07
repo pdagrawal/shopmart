@@ -1,50 +1,17 @@
 class CartsController < ApplicationController
+	before_action :require_user_login
 	def index
-		@carts = Cart.all
 		@line_items = LineItem.all
 	end
 
-	def current_cart
-		if session[:cart_id].nil?
-	    @current_cart = Cart.create
-	    session[:cart_id] = @current_cart.id
-	    @current_cart.user_id = current_user.id
-	  end
-	  if session[:cart_id]
-	    @current_cart = Cart.where("id = ?", session[:cart_id]).last
-	    @current_cart.user_id = current_user.id
-	  end
-	  @current_cart
-  end
-
 	def add_to_cart
-  	if user_signed_in?
-  		current_user.cart_id = current_cart.id
-  		line_item = current_cart.line_items.where('product_id = ? AND cart_id = ?', params[:product_id], current_cart.id).first
-  		@product = Product.where("id = ?", params[:product_id]).first
-	    if line_item == nil
-	    	item = LineItem.create!(:cart_id => current_cart.id, :product_id => @product.id, :quantity => 1)
-	      current_cart.line_items << item
-	      current_cart.save
-	    else
-	      line_item.quantity += 1
-	      line_item.save
-		  end
-      flash[:success] = "Item has successfully added to Cart"
-      redirect_to category_path(@product.category_id)
-    else
-    	flash[:danger] = "Login before adding item to cart"
-    	redirect_to new_user_session_path
-    end
-    current_cart.save
+		@current_cart.add_item_to_cart(params[:product_id], @current_cart)
+		@product = Product.where(id: params[:product_id]).first
+    redirect_to category_path(@product.category_id)
   end
 
 	def show
-    if user_signed_in?
-    	@cart = current_cart    	
-    else
-    	redirect_to new_user_session_path
-	  end
+   	@cart = @current_cart    	
   end
 
   def destroy
@@ -52,4 +19,13 @@ class CartsController < ApplicationController
   	redirect_to cart_path
   end
 
+  private
+  def require_user_login
+    unless user_signed_in?
+      flash[:danger] = "You must be logged in to access this section"
+      redirect_to new_user_session_path
+    else
+    	@current_cart = current_cart
+    end
+  end
 end

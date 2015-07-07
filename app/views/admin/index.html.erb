@@ -1,18 +1,23 @@
-<h2>Admin Login</h2>
+<hr/>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+<div class="container">
+  <h2>Admin Login</h2>
+  <%= form_for :admin, url:admin_login_path do |f| %>
+    <div class="field">
+      <%= f.label :admin_name %><br />
+      <%= f.text_field :admin_name, autofocus: true, autocomplete: "off" %>
+    </div>
 
-<%= form_for :admin, url:admin_login_path do |f| %>
-  <div class="field">
-    <%= f.label :admin_name %><br />
-    <%= f.text_field :admin_name, autofocus: true, autocomplete: "off" %>
-  </div>
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :admin_password, autocomplete: "off" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :admin_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %><br/>
-<%= link_to "Back", root_path %>
+    <div class="actions">
+      <%= f.submit "Log in" %>
+    </div>
+  <% end %><br/>
+  <%= link_to "Back", root_path %>
+</div>

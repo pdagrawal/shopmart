@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 20150630080820) do
     t.string   "address"
     t.string   "pincode"
     t.string   "state"
-    t.integer  "cart_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

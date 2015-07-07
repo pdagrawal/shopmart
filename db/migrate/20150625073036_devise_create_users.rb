@@ -10,7 +10,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :address
       t.string :pincode
       t.string :state
-      t.integer :cart_id
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
