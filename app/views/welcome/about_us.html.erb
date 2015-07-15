@@ -1,16 +1,3 @@
-<nav class="navbar navbar-default">
-	<ul class="nav nav-pills">
-	  <li role="presentation"><%= link_to "Home", root_path %></li>
-	  <% if user_signed_in? %>
-	  	<li role="presentation"><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
-	  <% else %>
-		  <li role="presentation"><%= link_to "Login", new_user_session_path %></li>
-		  <li role="presentation"><%= link_to "Signup", new_user_registration_path %></li>
-		<% end %>
-	  <li role="presentation" class="active"><%= link_to "About Us", about_us_path %></li>
-	  <li role="presentation"><%= link_to "Contact Us", contact_us_path %></li>
-	</ul>
-</nav>
 <div class="container">
 	<p>Online shopping (sometimes known as e-tail from "electronic retail" or e-shopping) is a form of electronic commerce which allows consumers to directly buy goods or services from a seller over the Internet using a web browser. Alternative names are: e-web-store, e-shop, e-store, Internet shop, web-shop, web-store, online store, online storefront and virtual store. Mobile commerce (or m-commerce) describes purchasing from an online retailer's mobile optimized online site or app.
 

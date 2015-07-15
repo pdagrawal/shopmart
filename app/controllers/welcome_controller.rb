@@ -1,7 +1,6 @@
 class WelcomeController < ApplicationController
   def index
-  	@products = Product.all
-  	@categories = Category.all
+    @categories = Category.all.reject { |c| c.products.blank? }
   end
 
   def about_us

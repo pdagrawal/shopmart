@@ -13,3 +13,104 @@
  *= require_tree .
  *= require_self
  */
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+  background-repeat: no-repeat;
+}
+#wrapper {
+  min-height:100%;
+  position:relative;
+}
+#header {
+  padding:10px;
+}
+#content {
+  padding-bottom:100px; /* Height of the footer element */
+}
+#footer {
+  background: #ffab62;
+  width:100%;
+  height:100px;
+  position:absolute;
+  bottom:0;
+  left:0;
+  margin: 0 0 .5% 0;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #202020;
+}
+
+address {
+  font-size : 16px;
+  text-align : center;
+  color: #efefef;
+  text-shadow: 1px 1px 0px #202020
+}
+
+.wrap{
+  margin: 10px auto;
+
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.textcolor{
+  font-size : 16px;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 0px #000000
+}
+.add_product_to_cart{
+  border-radius: 6px;
+  font-size: 17px;
+  padding: 4px 10px;
+  background-color: #1abc9c;
+  color: #fff;
+}
+.disable{
+  background-color: #7f8c8d;
+}
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+}
+.card {
+    background-color: #bdc3c7;
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.form-signin #user_mail,
+.form-signin #user_assword {
+    direction: ltr;
+    height: 44px;
+    font-size: 16px;
+}
+span#full_name_error,
+span#email_error,
+span#password_error,
+span#confirm_password_error,
+span#address_error,
+span#edit_full_name_error,
+span#current_password_error,
+span#new_password_error,
+span#new_password_confirmation_error,
+span#mobile_no_error,
+span#edit_address_error,
+span#pincode_error,
+span#state_error,
+span#quantity_error{
+  font-size:12px;
+  color:Red;
+  }

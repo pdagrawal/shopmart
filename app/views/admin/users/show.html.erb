@@ -1,0 +1,24 @@
+<div class="container">
+  <p><h3><%= @user.full_name %></h3></p>
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+  <p>
+    <strong>Mobile No:</strong>
+    <%= @user.mobile_no %>
+  </p>
+  <p>
+    <strong>Address:</strong>
+    <%= @user.address %>
+  </p>
+  <p>
+    <strong>Pincode:</strong>
+    <%= @user.pincode %>
+  </p>
+  <p>
+    <strong>State:</strong>
+    <%= @user.state %>
+  </p>
+  <%= link_to 'Back', admin_users_path %>
+</div>

@@ -6,7 +6,7 @@ class CartsController < ApplicationController
 
 	def add_to_cart
 		@current_cart.add_item_to_cart(params[:product_id], @current_cart)
-		@product = Product.where(id: params[:product_id]).first
+		@product = Product.find(params[:product_id])
     redirect_to category_path(@product.category_id)
   end
 
@@ -25,6 +25,7 @@ class CartsController < ApplicationController
       flash[:danger] = "You must be logged in to access this section"
       redirect_to new_user_session_path
     else
+    
     	@current_cart = current_cart
     end
   end

@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  devise_for :users
-  resources :admin, only:[:index]
-  post 'login', to: 'admin#login', as: 'admin_login'
-  post 'logout', to: 'admin#logout', as: 'admin_logout'
-  resources :categories, only:[:index, :show, :new, :create, :destroy]
-  resources :products
+  devise_for :users, :controllers => {:registrations => "my_devise/registrations"}
+  namespace :admin do
+    resources :categories, except:[:show, :edit, :update]
+    resources :products
+    resources :users, only:[:index, :show, :destroy]
+    post 'add_admin_role/:id', to: 'roles#add_admin_role', as: 'add_admin_role'
+    post 'remove_admin_role/:id', to: 'roles#remove_admin_role', as: 'remove_admin_role'
+  end
+  resources :categories, only:[:show]
+  resources :products, only:[:show]
   post '/add_to_cart/:product_id' => 'carts#add_to_cart', as: 'add_to_cart'
   resources :carts, only:[:index, :show, :destroy]
-  resources :line_items, only:[:index, :new, :edit, :update, :destroy]
-  resources :orders, only:[:show, :create]
+  resources :line_items, except:[:create, :show]
+  resources :orders, only:[:new, :show, :create]
   get 'welcome/index'
   get 'about_us', to: 'welcome#about_us'
   get 'contact_us', to: 'welcome#contact_us'

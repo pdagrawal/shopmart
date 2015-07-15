@@ -1,0 +1,12 @@
+<div class="container">
+  <h2>Enter Delivery Address</h2>
+  <%= form_for @order do |f| %>
+    <div class="field">
+      <%= f.label :Address %><br />
+      <%= f.text_field :address, autofocus: true %>
+    </div>
+    <div class="action">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
