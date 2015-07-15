@@ -14,8 +14,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create
-    @category = Category.find(params[:product][:category])
-    @product = @category.products.create(product_params)
+    @product = Category.find(params[:product][:category]).products.create(product_params)
     if @product.save
       flash[:success] = "Product has successfully added"
       redirect_to new_admin_product_path
@@ -37,14 +36,13 @@ class Admin::ProductsController < ApplicationController
       flash[:success] = "Product has successfully Updated"
       redirect_to admin_products_path
     else
-      flash[:danger] = "There is some error in edit process"
+      flash[:danger] = "There is some problem in edit process"
       render 'edit'
     end
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    @product.destroy
+    Product.find(params[:id]).destroy
     flash[:success] = "Product is successfully removed"
     redirect_to admin_products_path
   end
@@ -54,11 +52,4 @@ class Admin::ProductsController < ApplicationController
     params.require(:product).permit(:name, :price, :description)
   end
 
-  def require_admin_login
-    if user_signed_in?
-      is_admin
-    else
-      redirect_to new_user_session_path
-    end
-  end
 end

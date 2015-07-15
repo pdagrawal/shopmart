@@ -20,17 +20,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def is_admin
-    Role.where(user_id: current_user.id).all.each do |role|
-      if role.role_name == "Admin"
-        @admin_flage = "Y"
-      else
-        @admin_flage = "N"
-      end
+  def require_user_login
+    unless user_signed_in?
+      flash[:danger] = "You must be logged in to access this section"
+      redirect_to new_user_session_path
+    else
+      @current_cart = current_cart
     end
-    unless @admin_flage == "Y"
-      flash[:danger] = "You must have admin authorities to access this section"
-      redirect_to root_path
+  end
+
+  def require_admin_login
+    if user_signed_in?
+      Role.where(user_id: current_user.id).all.each do |role|
+        @admin_flage = (role.role_name == "Admin" ? "Y" : "N")
+      end
+      unless @admin_flage == "Y"
+        flash[:danger] = "You must have admin authorities to access this section"
+        redirect_to root_path
+      end
+    else
+      redirect_to new_user_session_path
     end
   end
 

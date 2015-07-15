@@ -9,18 +9,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    User.find(params[:id]).destroy
     flash[:success] = "User is successfully removed"
     redirect_to admin_users_path
   end
 
-  private
-  def require_admin_login
-    if user_signed_in?
-      is_admin
-    else
-      redirect_to new_user_session_path
-    end
-  end
 end

@@ -20,8 +20,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
-    @category.destroy
+    Category.find(params[:id]).destroy
     flash[:success] = "Category is removed"
     redirect_to admin_categories_path
   end
@@ -29,14 +28,6 @@ class Admin::CategoriesController < ApplicationController
   private
   def category_params
     params.require(:category).permit(:category_name)
-  end
-
-  def require_admin_login
-    if user_signed_in?
-      is_admin
-    else
-      redirect_to new_user_session_path
-    end
   end
 
 end

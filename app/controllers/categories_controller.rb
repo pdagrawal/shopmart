@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  
   def show
     if Category.find(params[:id]).blank?
       flash[:danger] = "This category is not available"
