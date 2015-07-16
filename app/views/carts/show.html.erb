@@ -10,10 +10,15 @@
     <% @cart.line_items.each do |item| %>
       <tr>
         <td><%= item.product.name %></td>
-        <td><%= item.quantity %></td>
+        <td>
+          <%= form_for item, :url => line_item_path(item) do |f| %>
+            <%= f.text_field :quantity, :value => item.quantity, :size => 2 %><br/>
+            <span id = "quantity_error"></span>
+            <%= f.submit "save" %>
+          <% end %>
+        </td>
         <td><%= item.product.price %></td>
         <td><%= @total = item.product.price*item.quantity %></td>
-        <td><%= link_to 'Edit', edit_line_item_path(item.id) %></td>
         <td><%= link_to 'Remove', line_item_path(item.id),
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>

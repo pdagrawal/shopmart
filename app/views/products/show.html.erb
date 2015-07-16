@@ -13,5 +13,6 @@
     <%= @product.description %>
   </p>
   <%= button_to "Add to Cart", add_to_cart_path(:product_id => @product), :method => :post %><br/>
+  <%= link_to 'Back_to_home', root_path %>
   <%= link_to 'Back', category_path(@product.category(params[:id])) %>
 </div>

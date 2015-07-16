@@ -29,15 +29,31 @@
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
             <% Role.where(user_id: current_user.id).all.each do |role| %>
-              <% if role.role_name == "Admin" %>
-                <li><a href="/admin/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-                <li><a href="/admin/categories/new"><span class="glyphicon glyphicon-plus-sign"></span> Add Category</a></li>
-                <li><a href="/admin/products/new"><span class="glyphicon glyphicon-plus-sign"></span> Add Product</a></li>
-                <li><a href="/admin/categories"><span class="glyphicon glyphicon-minus-sign"></span> Remove Category</a></li>
-                <li><a href="/admin/products"><span class="glyphicon glyphicon-minus-sign"></span> Remove Product</a></li>
-              <% end %>
+              <% @admin_flage = (role.role_name == "Admin" ? "Y" : "N" )%>
+            <% end %>
+            <% if @admin_flage == "Y" %>
+              <li><a href="/admin/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/admin/categories/new"><span class="glyphicon glyphicon-plus-sign"></span> Add Category</a></li>
+                  <li><a href="/admin/products/new"><span class="glyphicon glyphicon-plus-sign"></span> Add Product</a></li>
+                  <li><a href="/admin/categories"><span class="glyphicon glyphicon-minus-sign"></span> Remove Category</a></li>
+                  <li><a href="/admin/products"><span class="glyphicon glyphicon-minus-sign"></span> Remove Product</a></li>
+                </ul>
+              </li>
             <% end %>
           <% end %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <% Category.all.reject { |c| c.products.blank? }.each do |c| %>
+                <li><%=link_to c.category_name, category_path(c) %></li>
+              <% end %>
+            </ul>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
