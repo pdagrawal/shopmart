@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707141513) do
+ActiveRecord::Schema.define(version: 20150717101439) do
 
   create_table "carts", force: :cascade do |t|
     t.decimal  "total"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150707141513) do
   create_table "orders", force: :cascade do |t|
     t.string   "status"
     t.string   "address"
+    t.decimal  "total"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,8 +57,12 @@ ActiveRecord::Schema.define(version: 20150707141513) do
     t.decimal  "price"
     t.text     "description"
     t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id"
@@ -68,8 +73,6 @@ ActiveRecord::Schema.define(version: 20150707141513) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

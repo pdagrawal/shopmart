@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :require_admin_login
+  before_action :is_admin?
   def index
     @users = User.all
   end

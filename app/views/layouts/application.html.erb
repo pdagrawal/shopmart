@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
-            <% Role.where(user_id: current_user.id).all.each do |role| %>
+            <% current_user.roles.each do |role| %>
               <% @admin_flage = (role.role_name == "Admin" ? "Y" : "N" )%>
             <% end %>
             <% if @admin_flage == "Y" %>
@@ -38,8 +38,11 @@
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="/admin/categories/new"><span class="glyphicon glyphicon-plus-sign"></span> Add Category</a></li>
+                  <li class="divider"></li>
                   <li><a href="/admin/products/new"><span class="glyphicon glyphicon-plus-sign"></span> Add Product</a></li>
+                  <li class="divider"></li>
                   <li><a href="/admin/categories"><span class="glyphicon glyphicon-minus-sign"></span> Remove Category</a></li>
+                  <li class="divider"></li>
                   <li><a href="/admin/products"><span class="glyphicon glyphicon-minus-sign"></span> Remove Product</a></li>
                 </ul>
               </li>
@@ -57,11 +60,20 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
-            <li><a href="/users/edit"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
             <li><a href="/carts/id"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-            <li><%= link_to destroy_user_session_path, :method => :delete do %>
-              <i class="glyphicon glyphicon-log-out">Logout</i>
-            <% end %></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hi <%= current_user.full_name %>
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/users/edit"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="/user/orders"><span class="glyphicon glyphicon-saved"></span> Orders</a></li>
+                <li class="divider"></li>
+                <li><%= link_to destroy_user_session_path, :method => :delete do %>
+                  <i class="glyphicon glyphicon-log-out">Logout</i>
+                <% end %></li>
+              </ul>
+            </li>
           <% else %>
             <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

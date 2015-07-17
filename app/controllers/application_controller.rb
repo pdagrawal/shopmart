@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_admin_login
+  def is_admin?
     if user_signed_in?
       Role.where(user_id: current_user.id).all.each do |role|
         @admin_flage = (role.role_name == "Admin" ? "Y" : "N")

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :carts, only:[:index, :show, :destroy]
   resources :line_items, except:[:create, :show]
   resources :orders, only:[:new, :show, :create]
+  get 'user/orders', to: 'orders#all_orders_of_a_user'
   get 'welcome/index'
   get 'about_us', to: 'welcome#about_us'
   get 'contact_us', to: 'welcome#contact_us'

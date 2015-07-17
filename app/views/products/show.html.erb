@@ -1,5 +1,10 @@
 <div class="container">
   <p><h3><%= @product.category.category_name %>s</h3></p>
+
+  <% if @product.image? %>
+    <%= image_tag @product.image %><br />
+  <% end %>
+
   <p>
     <strong>Name:</strong>
     <%= @product.name %>
@@ -13,6 +18,5 @@
     <%= @product.description %>
   </p>
   <%= button_to "Add to Cart", add_to_cart_path(:product_id => @product), :method => :post %><br/>
-  <%= link_to 'Back_to_home', root_path %>
-  <%= link_to 'Back', category_path(@product.category(params[:id])) %>
+  <%= button_to "<Back_to_home", root_path, :method => :get %>
 </div>

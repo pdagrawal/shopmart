@@ -6,13 +6,24 @@
         <% @products.each do |product| %>
           <div class="col-md-4">
             <div class="thumbnail">
-              <%= link_to image_tag('pendrive1.png', alt: "Edit Entry"), product_path(product) %>
+              <% if user_signed_in? %>
+                <% current_user.roles.each do |role| %>
+                  <% @admin_flage = (role.role_name == "Admin" ? "Y" : "N" )%>
+                <% end %>
+                <% if @admin_flage == "Y" %>
+                  <%= link_to image_tag(product.image.url(:thumb), alt: product.name), admin_product_path(product) %>
+                <% else %>
+                  <%= link_to image_tag(product.image.url(:thumb), alt: product.name), product_path(product) %>
+                <% end %>
+              <% else %>
+                <%= link_to image_tag(product.image.url(:thumb), alt: product.name), product_path(product) %>
+              <% end %>
               <div class="caption">
                 <h5><%= product.name %></h5>
                 <h4>Rs <%= product.price %></h4>
 
                 <p></p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p><a href="#" class="btn btn-success" role="button">Add to cart</a> <a href="#" class="btn btn-info" role="button">Details</a></p>
               </div>
             </div>
           </div>

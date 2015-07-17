@@ -27,4 +27,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
   
+  def all_orders_of_a_user
+    @orders = Order.all.where(user_id: current_user.id)
+  end
 end
