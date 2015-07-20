@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Users List</h2><br/>
-  <table class="table table-hover" border="1">
+  <table id="order_table" class="table table-hover" border="1">
     <thead>
       <tr>
         <th>Full Name</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <tr>
+        <tr class = "clickable_row" data-link="<%= admin_user_path(user.id) %>">
           <td><%= user.full_name %></td>
           <td><%= user.email %></td>
           <td><%= Role.where(user_id: user.id).all.map(&:role_name) %></td>

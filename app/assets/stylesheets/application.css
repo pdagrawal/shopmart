@@ -114,3 +114,7 @@ span#quantity_error{
   font-size:12px;
   color:Red;
   }
+#order_table tbody tr:hover{
+  cursor: pointer;
+  background-color: #ccc;
+}

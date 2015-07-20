@@ -10,8 +10,9 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @order = Order.new(user_id: current_user.id, address: params[:order][:address], status: "Placed")
-    Cart.find(session[:cart_id]).line_items.each do |item|
+    @cart = Cart.find(session[:cart_id])
+    @order = Order.new(user_id: current_user.id, total: @cart.total, address: params[:order][:address], status: "Placed")
+    @cart.line_items.each do |item|
       @order.line_items << item
     end
     if @order.save

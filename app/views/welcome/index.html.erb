@@ -21,15 +21,26 @@
               <div class="caption">
                 <h5><%= product.name %></h5>
                 <h4>Rs <%= product.price %></h4>
-
-                <p></p>
-                <p><a href="#" class="btn btn-success" role="button">Add to cart</a> <a href="#" class="btn btn-info" role="button">Details</a></p>
+                <p>
+                  <% if user_signed_in? %>
+                    <% if @current_cart.line_items.where(product_id: product.id).first == nil %>
+                      <input type="button" value="Add to Cart" class="add_product_to_cart btn-success" id="add_to_cart_<%= product.id %>" >
+                    <% else %>
+                      <input type="button" value="Added to Cart" disabled= "true" class="add_product_to_cart disable" id="add_to_cart_<%= product.id %>" >
+                    <% end %>
+                    <% if @admin_flage == "Y" %>
+                      <a href="/admin/products/<%= product.id %>/edit" class="btn btn-info" role="button">Edit</a>
+                    <% end %>
+                  <% else %>
+                    <input type="button" value="Add to Cart" class="add_product_to_cart btn-success" id="add_to_cart_<%= product.id %>" >
+                  <% end %>
+                </p>
               </div>
             </div>
           </div>
         <% end %>
       </div>
     </div>
-    <div style="float:left; width:19%; margin-left:10px;">Offers</div>
+    <div style="float:left; width:15%; margin-left:10px;">Offers</div>
   </div>
 </div>

@@ -82,6 +82,9 @@
       </div>
     </div>
   </nav>
+  <% if user_signed_in? %>
+    <p class="text-right">Login at - <%= current_user.current_sign_in_at.strftime("%d %B, %Y %I:%M:%S %p") %></p>
+  <% end %>
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>

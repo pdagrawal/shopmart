@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def current_cart
     if user_signed_in?
       if session[:cart_id].blank?
-        @current_cart = Cart.create(user_id: current_user.id)
+        @current_cart = Cart.create(user_id: current_user.id, total: "0")
         session[:cart_id] = @current_cart.id
       else
         @current_cart = Cart.find(session[:cart_id])

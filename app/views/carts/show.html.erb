@@ -27,8 +27,8 @@
     <% end %>
     <tr>
       <td class="total price" colspan="4">
-        <b>Total:</b> <%= @cart.line_items.to_a.sum { |item| @total = item.product.price*item.quantity } %>
-        <% @cart.total = @total %>
+        <% @cart.total = @cart.line_items.to_a.sum { |item| @total = item.product.price*item.quantity } %>
+        <b>Total:</b><%= @cart.total %> 
         <% @cart.save %>
       </td>
     </tr>
