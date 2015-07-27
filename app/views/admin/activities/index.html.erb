@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Users Activities</h1>
+  <% @activities.each do |activity| %>
+    <div class="activity">
+      <span class="glyphicon glyphicon-<%= 
+      if activity.key == "user.login"
+      "log-in" elsif activity.key == "user.logout" 
+      "log-out" elsif activity.key == "user.create"
+      "user" elsif activity.key == "user.update"
+      "edit" elsif activity.key == "user.destroy"
+      "trash" elsif activity.key == "product.create" || activity.key == "line_item.create"
+      "plus" elsif activity.key == "product.update" || activity.key == "line_item.update"
+      "pencil" elsif activity.key == "product.destroy" || activity.key == "line_item.destroy"
+      "remove" elsif activity.key == "order.create"
+      "ok" end %>"></span>
+      <strong><%= activity.owner ? (link_to activity.owner.full_name, admin_user_path(activity.owner)) : 'User' %></strong>
+      <%= render_activity activity %>
+      <br /><small class="text-muted">at <%= activity.created_at.strftime("%I:%M:%S %p | %d %B, %Y") %></small>
+    </div>
+  <% end %>
+</div>

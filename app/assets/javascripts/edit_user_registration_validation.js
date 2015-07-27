@@ -26,7 +26,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#user_full_name').blur(function(){
+  $('#user_full_name').keyup(function(){
     if($('#user_full_name').val().match(/^\s*$/)){
       $('#edit_full_name_error').html("Enter a valid full name");
       return false;
@@ -40,7 +40,7 @@ $(document).ready(function(){
       $('#edit_full_name_error').html("");
     }
   });
-  $('#user_current_password').blur(function(){
+  $('#user_current_password').keyup(function(){
     if($('#user_current_password').val().length < 8){
       $('#current_password_error').html("Enter your current password");
       error++;
@@ -48,7 +48,7 @@ $(document).ready(function(){
       $('#current_password_error').html("");
     } 
   });
-  $('#user_password').blur(function(){
+  $('#user_password').keyup(function(){
     if($('#user_password').val() == ""){
       $('#new_password_error').html("");
     }else{
@@ -66,7 +66,7 @@ $(document).ready(function(){
       }
     }
   });
-  $('#user_password_confirmation').blur(function(){
+  $('#user_password_confirmation').keyup(function(){
     if($('#user_password').val() == ""){
       $('#new_password_confirmation_error').html("");
     }else{
@@ -78,7 +78,7 @@ $(document).ready(function(){
       }
     }
   });
-  $('#user_mobile_no').blur(function(){
+  $('#user_mobile_no').keyup(function(){
     if($('#user_mobile_no').val() == ""){
       $('#mobile_no_error').html("");
     }else{
@@ -90,7 +90,7 @@ $(document).ready(function(){
       }
     }
   });
-  $('#user_address').blur(function(){
+  $('#user_address').keyup(function(){
     if($('#user_address').val() == ""){
       $('#edit_address_error').html("Enter your address");
       return false;
@@ -103,7 +103,7 @@ $(document).ready(function(){
       }
     }
   });
-  $('#user_pincode').blur(function(){
+  $('#user_pincode').keyup(function(){
     if($('#user_pincode').val() == ""){
       $('#pincode_error').html("");
     }else{
@@ -115,7 +115,7 @@ $(document).ready(function(){
       }
     }
   });
-  $('#user_state').blur(function(){
+  $('#user_state').keyup(function(){
     if($('#user_state').val() == ""){
       $('#state_error').html("");
     }else{

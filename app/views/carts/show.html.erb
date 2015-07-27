@@ -2,13 +2,19 @@
   <h2>Your Cart</h2>
   <table border="1">
     <tr>
+      <th>Image</th>
       <th>Product</th>
       <th>Qty</th>
-      <th class="price">Unit Price</th>
-      <th class="price">Sub Total</th>
+      <th>Unit Price</th>
+      <th>Sub Total</th>
     </tr>
-    <% @cart.line_items.each do |item| %>
+    <% @current_cart.line_items.each do |item| %>
       <tr>
+        <td>
+          <% if item.product.image? %>
+            <%= image_tag item.product.image.url(:small) %><br />
+          <% end %>
+        </td>
         <td><%= item.product.name %></td>
         <td>
           <%= form_for item, :url => line_item_path(item) do |f| %>
@@ -18,7 +24,7 @@
           <% end %>
         </td>
         <td><%= item.product.price %></td>
-        <td><%= @total = item.product.price*item.quantity %></td>
+        <td><%= item.product.price*item.quantity %></td>
         <td><%= link_to 'Remove', line_item_path(item.id),
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
@@ -26,14 +32,12 @@
       </tr>
     <% end %>
     <tr>
-      <td class="total price" colspan="4">
-        <% @cart.total = @cart.line_items.to_a.sum { |item| @total = item.product.price*item.quantity } %>
-        <b>Total:</b><%= @cart.total %> 
-        <% @cart.save %>
+      <td colspan="5">
+        <b>Total: </b><%= @current_cart.total %> 
       </td>
     </tr>
   </table><br/>
-  <%= button_to 'Empty Cart', cart_path(@cart.id), :method => :delete %><br/>
+  <%= button_to 'Empty Cart', cart_path(@current_cart.id), :method => :delete %><br/>
   <%= button_to 'Place Order', new_order_path, :method => :get %><br/><br/>
-  <%= button_to "<Continue Shopping", root_path, :method => :get %>
+  <a href="/" class="btn btn-primary" role="button">Continue Shopping</a>
 </div>

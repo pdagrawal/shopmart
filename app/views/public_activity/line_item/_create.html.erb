@@ -1,0 +1,8 @@
+added
+<% if activity.trackable %>
+  <% if activity.trackable.product %>
+    <%= link_to activity.trackable.product.name, activity.trackable.product %> to cart
+  <% end %>
+<% else %>
+  product to cart which has since been removed
+<% end %>

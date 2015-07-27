@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Enter Delivery Address</h2>
   <%= form_for @order do |f| %>
-  <% if @order %>
+  <% if @order.errors %>
     <%= render "common/error_messages", :target => @order %>
   <% end %>
     <div class="field">

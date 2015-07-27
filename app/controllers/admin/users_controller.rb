@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Admin::BaseController
   before_action :is_admin?
   def index
     @users = User.all
@@ -9,9 +9,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    redirect_to admin_users_path if User.find(params[:id]).destroy
     flash[:success] = "User is successfully removed"
-    redirect_to admin_users_path
   end
 
 end

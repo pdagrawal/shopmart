@@ -114,7 +114,8 @@ span#quantity_error{
   font-size:12px;
   color:Red;
   }
-#order_table tbody tr:hover{
+#order_table tbody tr:hover,
+#user_table tbody tr td.clickable_column:hover {
   cursor: pointer;
   background-color: #ccc;
 }

@@ -1,4 +1,5 @@
 class LineItem < ActiveRecord::Base
+  include PublicActivity::Common
   belongs_to :cart
   belongs_to :product
   belongs_to :order

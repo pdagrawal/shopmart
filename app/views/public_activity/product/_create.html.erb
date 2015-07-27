@@ -1,0 +1,6 @@
+Created 
+<% if activity.trackable %>
+  <%= link_to activity.trackable.name, activity.trackable %> into database.
+<% else %>
+  which has since been removed from database
+<% end %>

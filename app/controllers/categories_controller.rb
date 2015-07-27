@@ -1,10 +1,10 @@
 class CategoriesController < ApplicationController
   def show
-    if Category.find(params[:id]).blank?
+    unless Category.find(params[:id]).blank?
+      @category = Category.find(params[:id])
+    else
       flash[:danger] = "This category is not available"
       redirect_to root_path
-    else
-      @category = Category.find(params[:id])
     end
     @current_cart = current_cart
   end

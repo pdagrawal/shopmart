@@ -1,35 +1,42 @@
-<div class="container">
-  <div class="text-danger" id="message"></div>
-  <p><h3><%= @category.category_name %>s :</h3></p><br/>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Description</th>
-      <th colspan="2">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @category.products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><%= product.description %></td>
-        <td><%= link_to 'Show', product_path(product) %></td>
-        <% if user_signed_in? %>
-          <% if @current_cart.line_items.where(product_id: product.id).first == nil %>
-            <td><input type="button" value="Add to Cart" class="add_product_to_cart" id="add_to_cart_<%= product.id %>" ></td>
-          <% else %>
-            <td><input type="button" value="Added to Cart" disabled= "true" class="add_product_to_cart disable" id="add_to_cart_<%= product.id %>" ></td>
-          <% end %>
-        <% else %>
-          <td><input type="button" value="Add to Cart" class="add_product_to_cart" id="add_to_cart_<%= product.id %>" ></td>
+<div class="container-fluid">
+  <div style="width:100%">
+    <div class="text-danger" id="message"></div>
+    <h2><span class="label label-primary"><%= @category.category_name %>s</span></h2><hr /><br />
+    <div style="float:left; width:20%;">Filters</div>
+    <div style="float:left; width:60%;">
+      <div class="row">
+        <% @category.products.each do |product| %>
+          <div class="col-md-4">
+            <div class="thumbnail">
+              <%= link_to image_tag(product.image.url(:thumb), alt: product.name), product_path(product) %>
+              <div class="caption">
+                <h5><%= product.name %></h5>
+                <h4>Rs <%= product.price %></h4>
+                <p>
+                  <% if user_signed_in? %>
+                    <% if @current_cart.line_items.where(product_id: product.id).first == nil %>
+                      <input type="button" value="Add to Cart" class="add_product_to_cart btn-success" id="add_to_cart_<%= product.id %>" >
+                    <% else %>
+                      <input type="button" value="Added to Cart" disabled= "true" class="add_product_to_cart disable" id="add_to_cart_<%= product.id %>" >
+                    <% end %>
+                    <% current_user.roles.each do |role| %>
+                      <% @admin_flage = (role.role_name == "Admin" ? true : false )%>
+                    <% end %>
+                    <% if @admin_flage %>
+                      <a href="/admin/products/<%= product.id %>/edit" class="btn btn-info" role="button">Edit</a>
+                    <% end %>
+                  <% else %>
+                    <input type="button" value="Add to Cart" class="add_product_to_cart btn-success" id="add_to_cart_<%= product.id %>" >
+                  <% end %>
+                  <%= hidden_field_tag('user', current_user) %>
+                </p>
+              </div>
+            </div>
+          </div>
         <% end %>
-        <%= hidden_field_tag('user', current_user) %>
-      </tr>
-    <% end %>
-    </tbody>
-  </table><br/>
-  <%= button_to 'Back', root_path, :method => :get %>
+      </div>
+    </div>
+    <div style="float:left; width:15%; margin-left:10px;">Offers</div>
+  </div>
 </div>
+<a href="/" class="btn btn-primary" role="button">Back</a>

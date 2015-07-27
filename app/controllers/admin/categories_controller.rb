@@ -1,4 +1,4 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < Admin::BaseController
   before_action :is_admin?
   def index
     @categories = Category.all
@@ -20,9 +20,8 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def destroy
-    Category.find(params[:id]).destroy
+    redirect_to admin_categories_path if Category.find(params[:id]).destroy
     flash[:success] = "Category is removed"
-    redirect_to admin_categories_path
   end
 
   private

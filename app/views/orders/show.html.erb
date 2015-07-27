@@ -11,6 +11,30 @@
         <strong>Order Date:</strong>
         <%= @order.created_at.strftime("%d %B, %Y %I:%M %p") %>
       </p>
+      <table border="1">
+        <tr>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Sub Total</th>
+        </tr>
+        <% @order.line_items.each do |item| %>
+          <tr>
+            <% if item %>
+              <td>
+                <% if item.product.image? %>
+                  <%= image_tag item.product.image.url(:small) %><br />
+                <% end %>
+              </td>
+              <td><%= item.product.name %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.product.price %></td>
+              <td><%= @total = item.product.price*item.quantity %></td> 
+            <% end %>
+          </tr>
+        <% end %>
+      </table><br/>
     </div>
 
     <div class="col-md-6">
@@ -22,25 +46,8 @@
         <strong>Delivery Address:</strong>
         <%= @order.address %>
       </p>
+      <h4>Total Amount: Rs. <%= @order.total %></h4><br />
+      <a href="/" class="btn btn-primary" role="button">Continue Shopping</a>
     </div>
   </div>
-  <table border="1">
-    <tr>
-      <th>Product</th>
-      <th>Qty</th>
-      <th class="price">Unit Price</th>
-      <th class="price">Sub Total</th>
-    </tr>
-    <% @order.line_items.each do |item| %>
-      <tr>
-        <td><%= item.product.name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.product.price %></td>
-        <td><%= @total = item.product.price*item.quantity %></td> 
-      </tr>
-    <% end %>
-  </table><br/>
-  <h4>Total Amount:</h4>
-  <h4>Rs. <%= @order.total %></h4><br/>
-  <%= button_to "<Continue Shopping", root_path, :method => :get %>
 </div>

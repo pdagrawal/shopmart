@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Users List</h2><br/>
-  <table id="order_table" class="table table-hover" border="1">
+  <table id="user_table" class="table table-hover" border="1">
     <thead>
       <tr>
         <th>Full Name</th>
@@ -11,19 +11,25 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <tr class = "clickable_row" data-link="<%= admin_user_path(user.id) %>">
-          <td><%= user.full_name %></td>
-          <td><%= user.email %></td>
-          <td><%= Role.where(user_id: user.id).all.map(&:role_name) %></td>
+        <tr>
+          <td class = "clickable_column" data-link="<%= admin_user_path(user.id) %>">
+            <%= user.full_name %>
+          </td>
+          <td class = "clickable_column" data-link="<%= admin_user_path(user.id) %>">
+            <%= user.email %>
+          </td>
+          <td class = "clickable_column" data-link="<%= admin_user_path(user.id) %>">
+            <%= user.roles.map(&:role_name) %>
+          </td>
           <td><%= link_to 'Show', admin_user_path(user) %></td>
           <% if user.id == current_user.id %>
             <td><input type="button" value="You" disabled="true"></td>
             <td><input type="button" value="Remove" disabled= "true" ></td>
           <% else %>
-            <% Role.where(user_id: user.id).all.each do |role| %>
-              <% @admin_flage = (role.role_name == "Admin" ? "Y" : "N" )%>
+            <% user.roles.each do |role| %>
+              <% @admin_flage = (role.role_name == "Admin" ? true : false )%>
             <% end %>
-            <% if @admin_flage == "Y" %>
+            <% if @admin_flage %>
               <td><%= button_to "Remove Admin Role", admin_remove_admin_role_path(user.id), :method => :post %></td>
             <% else %>
               <td><%= button_to "Add Admin Role", admin_add_admin_role_path(user.id), :method => :post %></td>
@@ -37,5 +43,5 @@
       <% end %>
     </tbody>
   </table><br/>
-  <%= button_to "Back", root_path, :method => :get %>
+  <a href="/" class="btn btn-primary" role="button">Back</a>
 </div>

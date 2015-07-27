@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action :require_user_login
   def new
-    if Cart.find(session[:cart_id]).line_items.blank?
+    unless Cart.find(session[:cart_id]).line_items.blank?
+      @order = Order.new
+    else
       flash[:danger] = "Add some item before placing order"
       redirect_to root_path
-    else
-      @order = Order.new
     end
   end
   
@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
       @order.line_items << item
     end
     if @order.save
+      @order.create_activity :create, owner: current_user
       flash[:success] = "Your Order has successfully placed"
       session[:cart_id] = nil
       redirect_to order_path(@order.id)
@@ -28,7 +29,4 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
   
-  def all_orders_of_a_user
-    @orders = Order.all.where(user_id: current_user.id)
-  end
 end

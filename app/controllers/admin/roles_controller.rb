@@ -1,13 +1,10 @@
-class Admin::RolesController < ApplicationController
-
+class Admin::RolesController < Admin::BaseController
+	before_action :is_admin?
   def add_admin_role
-    @role = Role.create(role_name: "Admin", user_id: params[:id])
-    @role.save
-    redirect_to admin_users_path
+    redirect_to admin_users_path if Role.create(role_name: "Admin", user_id: params[:id])
   end
 
   def remove_admin_role
-    User.find(params[:id]).roles.where(role_name: "Admin").first.destroy
-    redirect_to admin_users_path
+    redirect_to admin_users_path if User.find(params[:id]).roles.where(role_name: "Admin").first.destroy
   end
 end

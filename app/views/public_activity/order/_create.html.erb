@@ -1,0 +1,6 @@
+placed order
+<% if activity.trackable %>
+  with ID [<%= link_to activity.trackable.id, activity.trackable %>]
+<% else %>
+  which has since been removed from database
+<% end %>

@@ -13,6 +13,7 @@ class LineItemsController < ApplicationController
 
   def update
     if @line_item.update(line_item_params)
+      @line_item.create_activity :update, owner: current_user
       flash[:success] = "Cart has successfully Updated"
       redirect_to cart_path
     else
@@ -22,9 +23,9 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-    @line_item.destroy
+    @line_item.create_activity :destroy, owner: current_user
+    redirect_to cart_path if @line_item.destroy
     flash[:success] = "Item is successfully removed"
-    redirect_to cart_path
   end
 
   private

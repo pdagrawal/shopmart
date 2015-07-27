@@ -38,7 +38,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#user_full_name').blur(function(){
+  $('#user_full_name').keyup(function(){
     if($('#user_full_name').val().match(/^\s*$/)){
       $('#full_name_error').html("Enter your full name");
       return false;
@@ -52,7 +52,7 @@ $(document).ready(function(){
       $('#full_name_error').html("");
     }
   });
-  $('#user_email').blur(function(){
+  $('#user_email').keyup(function(){
     if($('#user_email').val() == ""){
       $('#email_error').html("Enter email id");
       return false;
@@ -66,7 +66,7 @@ $(document).ready(function(){
       return false;
     }
   });
-  $('#user_password').blur(function(){
+  $('#user_password').keyup(function(){
     if($('#user_password').val().match(/^\s*$/)){
       $('#password_error').html("Please enter a valid password");
       return false;
@@ -94,7 +94,7 @@ $(document).ready(function(){
       $('#confirm_password_error').html("");
     }               
   });
-  $('#user_address').blur(function(){
+  $('#user_address').keyup(function(){
     if($('#user_address').val() == ""){
       $('#address_error').html("Enter your address");
       return false;

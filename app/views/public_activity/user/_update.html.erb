@@ -1,0 +1,6 @@
+updated his/her
+<% if activity.trackable %>
+  <%= link_to "profile", admin_user_path(activity.owner) %>
+<% else %>
+  account which has since been removed from database
+<% end %>

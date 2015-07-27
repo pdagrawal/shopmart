@@ -1,11 +1,12 @@
-class Admin::ProductsController < ApplicationController
+class Admin::ProductsController < Admin::BaseController
   before_action :is_admin?
+  before_action :require_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = Product.all
   end
 
   def show
-    @product = Product.find(params[:id])
+    redirect_to product_path
   end
 
   def new
@@ -14,8 +15,9 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create
-    @product = Category.find(params[:product][:category]).products.create(product_params)
+    @product = Category.find(params[:product][:category]).products.new(product_params)
     if @product.save
+      @product.create_activity :create, owner: current_user
       flash[:success] = "Product has successfully added"
       redirect_to new_admin_product_path
     else
@@ -27,12 +29,11 @@ class Admin::ProductsController < ApplicationController
 
   def edit
     @categories = Category.all
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
+      @product.create_activity :update, owner: current_user
       flash[:success] = "Product has successfully Updated"
       redirect_to admin_products_path
     else
@@ -42,9 +43,9 @@ class Admin::ProductsController < ApplicationController
   end
 
   def destroy
-    Product.find(params[:id]).destroy
+    @product.create_activity :destroy, owner: current_user
+    redirect_to admin_products_path if @product.destroy
     flash[:success] = "Product is successfully removed"
-    redirect_to admin_products_path
   end
 
   private
@@ -52,4 +53,7 @@ class Admin::ProductsController < ApplicationController
     params.require(:product).permit(:name, :price, :description, :image)
   end
 
+  def require_product
+    @product = Product.find(params[:id])
+  end
 end
